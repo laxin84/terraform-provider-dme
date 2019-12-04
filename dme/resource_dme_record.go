@@ -41,7 +41,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
-			"mxLevel": &schema.Schema{
+			"mxlevel": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
@@ -65,11 +65,11 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"hardLink": &schema.Schema{
+			"hardlink": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
 			},
-			"redirectType": &schema.Schema{
+			"redirecttype": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -77,7 +77,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"gtdLocation": &schema.Schema{
+			"gtdlocation": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 			},
