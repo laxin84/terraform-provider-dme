@@ -1,14 +1,14 @@
 package dme
 
 import (
-	"os"
-
 	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
+	"os"
 )
 
 // Provider provides a Provider...
-func Provider() *schema.Provider {
-	return &schema.Provider{
+func Provider() terraform.ResourceProvider {
+	provider := &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"akey": &schema.Schema{
 				Type:        schema.TypeString,
@@ -33,9 +33,20 @@ func Provider() *schema.Provider {
 		ResourcesMap: map[string]*schema.Resource{
 			"dme_record": resourceDMERecord(),
 		},
-
-		ConfigureFunc: providerConfigure,
 	}
+
+	provider.ConfigureFunc = func(d *schema.ResourceData) (interface{}, error) {
+		terraformVersion := provider.TerraformVersion
+		if terraformVersion == "" {
+			// Terraform 0.12 introduced this field to the protocol
+			// We can therefore assume that if it's missing it's 0.10 or 0.11
+			terraformVersion = "0.11+compatible"
+		}
+		return providerConfigure(d, terraformVersion)
+	}
+
+	return provider
+
 }
 
 func envDefaultFunc(k string) schema.SchemaDefaultFunc {
@@ -52,7 +63,7 @@ func envDefaultFunc(k string) schema.SchemaDefaultFunc {
 	}
 }
 
-func providerConfigure(d *schema.ResourceData) (interface{}, error) {
+func providerConfigure(d *schema.ResourceData, terraformVersion string) (interface{}, error) {
 	config := Config{
 		AKey:       d.Get("akey").(string),
 		SKey:       d.Get("skey").(string),
