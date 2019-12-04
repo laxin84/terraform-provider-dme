@@ -37,7 +37,7 @@ func TestAccDMERecord_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"dme_record.test", "ttl", "2000"),
 					resource.TestCheckResourceAttr(
-						"dme_record.test", "gtdLocation", "DEFAULT"),
+						"dme_record.test", "gtd_location", "DEFAULT"),
 				),
 			},
 		},
@@ -68,7 +68,7 @@ func TestAccDMERecordCName(t *testing.T) {
 					resource.TestCheckResourceAttr(
 						"dme_record.test", "ttl", "2000"),
 					resource.TestCheckResourceAttr(
-						"dme_record.test", "gtdLocation", "DEFAULT"),
+						"dme_record.test", "gtd_location", "DEFAULT"),
 				),
 			},
 		},
