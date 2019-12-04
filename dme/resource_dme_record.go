@@ -41,7 +41,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
-			"mxLevel": &schema.Schema{
+			"mxlevel": &schema.Schema{
 				Type:     schema.TypeInt,
 				Optional: true,
 			},
@@ -65,11 +65,11 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"hardLink": &schema.Schema{
+			"hardlink": &schema.Schema{
 				Type:     schema.TypeBool,
 				Optional: true,
 			},
-			"redirectType": &schema.Schema{
+			"redirecttype": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -77,7 +77,7 @@ func resourceDMERecord() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 			},
-			"gtdLocation": &schema.Schema{
+			"gtd_location": &schema.Schema{
 				Type:     schema.TypeString,
 				Optional: true,
 			},
@@ -175,8 +175,8 @@ func getAll(d *schema.ResourceData, cr map[string]interface{}) error {
 	if attr, ok := d.GetOk("value"); ok {
 		cr["value"] = attr.(string)
 	}
-	if attr, ok := d.GetOk("gtdLocation"); ok {
-		cr["gtdLocation"] = attr.(string)
+	if attr, ok := d.GetOk("gtd_location"); ok {
+		cr["gtd_location"] = attr.(string)
 	}
 
 	switch strings.ToUpper(d.Get("type").(string)) {
@@ -225,7 +225,7 @@ func setAll(d *schema.ResourceData, rec *dnsmadeeasy.Record) error {
 	d.Set("value", rec.Value)
 	// only set gtdLocation if it is given as this is optional.
 	if rec.GtdLocation != "" {
-		d.Set("gtdLocation", rec.GtdLocation)
+		d.Set("gtd_location", rec.GtdLocation)
 	}
 
 	switch rec.Type {
